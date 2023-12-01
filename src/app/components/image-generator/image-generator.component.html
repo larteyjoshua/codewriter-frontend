@@ -1,0 +1,43 @@
+<section class="d-container">
+    <app-success-alert
+      [message]="alertMessage"
+      [visible]="showAlert"
+      [type]="alertType"
+    ></app-success-alert>
+    <div class="image-container"  *ngIf="imageURL">
+      <div class="image-generated">
+        <div class="clr-col-lg-6 clr-col-12">
+          <a href="..." class="card">
+            <div class="card-img">
+              <img [src]="imageURL" class="image-generated">
+            </div>
+            <div class="card-block">
+              <p class="card-text">
+                {{revised_prompt}}
+              </p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+       
+    </div>    
+  
+    <div class="generator-tool">
+      <div class="round-input">
+        <input
+          class="prompt-input"
+          type="text"
+          [(ngModel)]="prompt"
+          placeholder="Write the full Prompt"
+          (keydown.enter)="imageGenerator()"
+        />
+        <ng-icon
+          size="50"
+          name="heroPaperAirplane"
+          (click)="imageGenerator()"
+        ></ng-icon>
+      </div>
+    </div>
+  </section>
+  

@@ -1,1 +1,27 @@
-/* You can add global styles to this file, and also import other style files */
+.d-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+}
+
+.generator-tool {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+}
+
+.prompt-input {
+    width: 900px;
+    height: 50px;
+    border-radius: 40px;
+    padding: 20px;
+}
+
+.round-input {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 10px;
+}
