@@ -5,12 +5,23 @@
     align-items: center;
     height:auto;
     width: auto;
+    padding-bottom: 50px;
 }
 
 .image-generated {
-    width: 1200px;
+    width: auto;
     height: auto;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.sidebar {
+    position: fixed !important;
+}
+.listing {
+    display: flex;
+    flex-direction: column;
+    justify-content:flex-start;
+    gap: 20px;
+    padding-left: 40px;
 }

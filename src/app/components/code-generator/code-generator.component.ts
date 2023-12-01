@@ -17,7 +17,7 @@ export class CodeGeneratorComponent {
 
   codeGenerator() {
     if (this.prompt.length > 0) {
-      const data: RequestObject = {
+      const data: any = {
         'prompt': this.prompt,
       };
       console.log(data);

@@ -1,43 +1,120 @@
-<section class="d-container">
-    <app-success-alert
-      [message]="alertMessage"
-      [visible]="showAlert"
-      [type]="alertType"
-    ></app-success-alert>
-    <div class="image-container"  *ngIf="imageURL">
-      <div class="image-generated">
-        <div class="clr-col-lg-6 clr-col-12">
-          <a href="..." class="card">
-            <div class="card-img">
-              <img [src]="imageURL" class="image-generated">
+<section class="main-container">
+  <div class="content-container">
+    <clr-vertical-nav class="heading-1">
+      <div class="listing">
+        <clr-radio-container clrInline>
+          <label >Model</label>
+          <clr-radio-wrapper *ngFor="let option of modelList">
+            <input
+              type="radio"
+              clrRadio
+              name="Models"
+              required
+              value="{{option.model}}"
+              [(ngModel)]="model"
+              [checked]="option.model === model"
+              
+            />
+            <label>{{option.label}}</label>
+          </clr-radio-wrapper>
+        </clr-radio-container>
+
+        <clr-radio-container clrInline>
+          <label >Quality</label>
+          <clr-radio-wrapper *ngFor="let option of qualityList">
+            <input
+              type="radio"
+              clrRadio
+              name="quality"
+              required
+              value="{{option.quality}}"
+              [(ngModel)]="quality"
+              [checked]="option.quality === quality"
+              
+            />
+            <label>{{option.label}}</label>
+          </clr-radio-wrapper>
+        </clr-radio-container>
+
+        <clr-radio-container >
+          <label >Size</label>
+          <clr-radio-wrapper *ngFor="let option of sizeList">
+            <input
+              type="radio"
+              clrRadio
+              name="size"
+              required
+              value="{{option.size}}"
+              [(ngModel)]="size"
+              [checked]="option.size === size"
+              
+            />
+            <label>{{option.label}}</label>
+          </clr-radio-wrapper>
+        </clr-radio-container>
+
+        <clr-range-container [clrRangeHasProgress]="true">
+          <label>number(n) of Parallel Images</label>
+          <input
+            type="range"
+            clrRange
+            [(ngModel)]="n"
+            name="n"
+            (change)="rangeChange($event)"
+            min="1"
+            max="10"
+            step="1"
+          />
+          <clr-control-helper>{{n}}</clr-control-helper>
+        </clr-range-container>
+
+        <div class="nav-divider"></div>
+        <a clrVerticalNavLink routerLink="./credit" routerLinkActive="active"
+          >Credit</a
+        >
+      </div>
+    </clr-vertical-nav>
+    <div class="content-area">
+      <div class="d-container">
+        <app-success-alert
+          [message]="alertMessage"
+          [visible]="showAlert"
+          [type]="alertType"
+        ></app-success-alert>
+        <div class="image-container" *ngIf="imageURL">
+          <div class="image-generated">
+            <div class="clr-col-lg-6 clr-col-12">
+              <a href="..." class="card">
+                <div class="card-img">
+                  <img [src]="imageURL" class="image-generated" />
+                </div>
+                <div class="card-block">
+                  <p class="card-text">
+                    {{ revised_prompt }}
+                  </p>
+                </div>
+              </a>
             </div>
-            <div class="card-block">
-              <p class="card-text">
-                {{revised_prompt}}
-              </p>
-            </div>
-          </a>
+          </div>
+        </div>
+
+        <div class="generator-tool">
+          <div class="round-input">
+            <input
+              class="prompt-input"
+              type="text"
+              [(ngModel)]="prompt"
+              placeholder="Write the full Prompt"
+              (keydown.enter)="imageGenerator()"
+            />
+            <ng-icon
+              size="50"
+              name="heroPaperAirplane"
+              (click)="imageGenerator()"
+            ></ng-icon>
+          </div>
         </div>
       </div>
-
-       
-    </div>    
-  
-    <div class="generator-tool">
-      <div class="round-input">
-        <input
-          class="prompt-input"
-          type="text"
-          [(ngModel)]="prompt"
-          placeholder="Write the full Prompt"
-          (keydown.enter)="imageGenerator()"
-        />
-        <ng-icon
-          size="50"
-          name="heroPaperAirplane"
-          (click)="imageGenerator()"
-        ></ng-icon>
-      </div>
     </div>
-  </section>
-  
+  </div>
+</section>
