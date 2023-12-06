@@ -22,4 +22,10 @@ export class ApiService {
     return this.http.post(generateImageURL, object, { observe: 'response' });
   }
 
+
+  helloWorld(): Observable<any> {
+    const helloWord = this.url + 'hello';
+    return this.http.get(helloWord, { observe: 'response' });
+  }
+
 }
