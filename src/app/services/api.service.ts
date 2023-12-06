@@ -19,7 +19,7 @@ export class ApiService {
   
   generateImage(object: RequestObject): Observable<any> {
     const generateImageURL = this.url + 'generate-image';
-    return this.http.post(generateImageURL, object, {timeout:50000, observe: 'response' });
+    return this.http.post(generateImageURL, object, { observe: 'response' });
   }
 
 
