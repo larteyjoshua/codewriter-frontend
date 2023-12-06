@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { ModelList, QualityList, RequestObject, SizeList } from 'src/app/model';
 import { ApiService } from 'src/app/services/api.service';
 
@@ -39,7 +40,8 @@ export class ImageGeneratorComponent {
   nError: string = '';
 
 
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService,
+    private toastr: ToastrService) {}
 
   rangeChange(event: any) {
     console.log(event.target.value);
@@ -57,22 +59,12 @@ export class ImageGeneratorComponent {
         n:this.n
       };
       if (this.model ==='dall-e-3' && this.n>1){
-        this.alertType = 'alert alert-danger alert-sm';
-        this.showAlert = true;
-        this.alertMessage ="Dalle-3 can only generate one image at a time";
-        setTimeout(() => {
-          this.showAlert = false;
-        }, 4000);
+        this.toastr.error('Dalle-3 can only generate one image at a time!', 'Error!');
         return
       }
 
       if (this.model ==='dall-e-2' && this.size !=='1024x1024'){
-        this.alertType = 'alert alert-danger alert-sm';
-        this.showAlert = true;
-        this.alertMessage ="Dalle-2 can only generate 1024x1024 images";
-        setTimeout(() => {
-          this.showAlert = false;
-        }, 4000);
+        this.toastr.error('"Dalle-2 can only generate 1024x1024 images!', 'Error!');
         return
       }
       this.apiService.generateImage(data).subscribe({
@@ -86,22 +78,14 @@ export class ImageGeneratorComponent {
         error: (error) => {
           {
             console.log(error);
-            this.alertType = 'alert alert-danger alert-sm';
-            this.showAlert = true;
             this.alertMessage = error.message;
-            setTimeout(() => {
-              this.showAlert = false;
-            }, 4000);
+            this.toastr.error(error.message, 'Error!');
+          
           }
         },
       });
     } else {
-      this.alertType = 'alert alert-danger alert-sm';
-      this.showAlert = true;
-      this.alertMessage = 'Input cannot be empty!';
-      setTimeout(() => {
-        this.showAlert = false;
-      }, 4000);
+      this.toastr.error('Input cannot be empty!', 'Error!');
     }
   }
 }

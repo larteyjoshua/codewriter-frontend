@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ErrorAlertComponent } from './error-alert.component';
+import { SenderCardComponent } from './sender-card.component';
 
-describe('ErrorAlertComponent', () => {
-  let component: ErrorAlertComponent;
-  let fixture: ComponentFixture<ErrorAlertComponent>;
+describe('SenderCardComponent', () => {
+  let component: SenderCardComponent;
+  let fixture: ComponentFixture<SenderCardComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ErrorAlertComponent ]
+      declarations: [ SenderCardComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ErrorAlertComponent);
+    fixture = TestBed.createComponent(SenderCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

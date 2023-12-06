@@ -1,9 +1,11 @@
+body {
+    overflow: hidden;
+  }
+
 .d-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-   
 }
 
 .generator-tool {
@@ -13,8 +15,9 @@
 }
 
 .prompt-input {
-    width: 900px;
-    height: 50px;
+    width: 700px;
+    height: 40px;
+    max-height: auto;
     border-radius: 40px;
     padding: 20px;
 }
@@ -25,3 +28,86 @@
     align-items: center;
     padding-bottom: 10px;
 }
+
+.image-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height:auto;
+    width: auto;
+    padding-bottom: 50px;
+}
+
+.image-generated {
+    width: auto;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.code-generated {
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+.sidebar {
+    position: fixed !important;
+}
+.listing {
+    display: flex;
+    flex-direction: column;
+    justify-content:flex-start;
+    gap: 20px;
+    padding-left: 20px;
+}
+.main-container {
+    background-color: #f0eee5;
+}
+
+
+.content-area {
+    display: flex;
+    justify-content: center;
+    align-items: baseline !important;
+    margin-bottom: 100px;
+}
+
+.card {
+    border-radius: 20px;
+    width: 800px;
+    max-width: auto;
+    padding: 20px;
+}
+
+
+.markdown-clipboard-button {
+    background-color: rgba(255, 255, 255, 0.07);
+    border: none;
+    border-radius: 4px;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 11px;
+    padding: 4px 0;
+    width: 50px;
+    transition: all 250ms ease-out;
+  }
+  
+  .markdown-clipboard-button:hover {
+    background-color: rgba(255, 255, 255, 0.14);
+  }
+  
+  .markdown-clipboard-button:active {
+    transform: scale(0.95);
+  }
+  
+  .markdown-clipboard-button.copied {
+    background-color: rgba(0, 255, 0, 0.1);
+    color: #00ff00;
+  }
+  

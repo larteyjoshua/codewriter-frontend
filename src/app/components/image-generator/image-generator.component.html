@@ -75,16 +75,9 @@
       </div>
     </clr-vertical-nav>
     <div class="content-area">
-      <div class="d-container">
-        <app-success-alert
-          [message]="alertMessage"
-          [visible]="showAlert"
-          [type]="alertType"
-        ></app-success-alert>
         <div class="image-container" *ngIf="imageURL">
           <div class="image-generated">
-            <div class="clr-col-lg-6 clr-col-12">
-              <a href="..." class="card">
+              <div class="card">
                 <div class="card-img">
                   <img [src]="imageURL" class="image-generated" />
                 </div>
@@ -93,8 +86,7 @@
                     {{ revised_prompt }}
                   </p>
                 </div>
-              </a>
-            </div>
+              </div>
           </div>
         </div>
 
@@ -116,5 +108,4 @@
         </div>
       </div>
     </div>
-  </div>
 </section>

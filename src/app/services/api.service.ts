@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { RequestObject } from '../model';
+import { CodeRequestObject, RequestObject } from '../model';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -11,7 +11,7 @@ export class ApiService {
   url = environment.apiUrl;
   constructor(private http: HttpClient) {}
 
-  generateCode(object: RequestObject): Observable<any> {
+  generateCode(object: CodeRequestObject): Observable<any> {
     const generateCodeURL = this.url + 'generate-code';
     return this.http.post(generateCodeURL, object, { observe: 'response' });
   }

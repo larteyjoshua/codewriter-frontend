@@ -13,12 +13,12 @@ import { FormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgIconsModule } from '@ng-icons/core';
 import { heroArrowDownCircle, heroClipboard,heroPaperAirplane } from '@ng-icons/heroicons/outline';
-import { SuccessAlertComponent } from './components/success-alert/success-alert.component';
-import { ErrorAlertComponent } from './components/error-alert/error-alert.component'
 import { SpinnerService } from './services/spinner.service';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
-
-
+import { ClipboardButtonComponent, ClipboardOptions, MarkdownModule } from 'ngx-markdown';
+import { SenderCardComponent } from './components/sender-card/sender-card.component';
+import { ReceiverCardComponent } from './components/receiver-card/receiver-card.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -28,8 +28,8 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     CodeGeneratorComponent,
     ImageGeneratorComponent,
     SpinnerComponent,
-    SuccessAlertComponent,
-    ErrorAlertComponent
+    SenderCardComponent,
+    ReceiverCardComponent
   ],
   imports: [
     BrowserModule,
@@ -40,6 +40,16 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     AppRoutingModule,
     HttpClientModule,
     NgIconsModule.withIcons({ heroArrowDownCircle, heroClipboard,heroPaperAirplane  }),
+    MarkdownModule.forRoot({
+      clipboardOptions: {
+        provide: ClipboardOptions,
+        useValue: {
+          buttonComponent: ClipboardButtonComponent,
+        },
+      },
+    }),
+    ToastrModule.forRoot(), 
+    
   ],
   providers: [SpinnerService,
     {
