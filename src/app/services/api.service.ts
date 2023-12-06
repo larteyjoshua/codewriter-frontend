@@ -13,13 +13,13 @@ export class ApiService {
 
   generateCode(object: CodeRequestObject): Observable<any> {
     const generateCodeURL = this.url + 'generate-code';
-    return this.http.post(generateCodeURL, object, { observe: 'response' });
+    return this.http.post(generateCodeURL, object, { observe: 'response' },);
   }
 
   
   generateImage(object: RequestObject): Observable<any> {
     const generateImageURL = this.url + 'generate-image';
-    return this.http.post(generateImageURL, object, { observe: 'response' });
+    return this.http.post(generateImageURL, object, {timeout:50000, observe: 'response' });
   }
 
 
