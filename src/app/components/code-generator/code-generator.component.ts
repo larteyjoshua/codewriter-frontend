@@ -47,7 +47,7 @@ export class CodeGeneratorComponent implements OnInit {
   }
   codeGenerator() {
     if (this.prompt.length > 0) {
-      this.message.push({'role': 'user', content: this.prompt + ' ' + this.language,})
+   
       const data: CodeRequestObject = {
         message: this.message,
         temperature: this.temperature,
@@ -56,6 +56,7 @@ export class CodeGeneratorComponent implements OnInit {
       this.apiService.generateCode(data).subscribe({
         next: (response) => {
           if (response.status === 200) {
+            this.message.push({'role': 'user', content: this.prompt + ' ' + this.language,})
             this.message.push({'role': 'assistant', content: response.body});
           }
 
@@ -63,7 +64,7 @@ export class CodeGeneratorComponent implements OnInit {
         error: (error) => {
           {
             console.log(error);
-            this.toastr.error(error.message, 'Error');
+            this.toastr.error(error.error.detail, 'Error');
           }
         },
       });

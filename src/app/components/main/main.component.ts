@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/services/api.service';
+import { SessionCodeService } from 'src/app/services/session-code.service';
 
 @Component({
   selector: 'app-main',
@@ -8,7 +9,10 @@ import { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./main.component.scss'],
 })
 export class MainComponent implements OnInit {
-  constructor(private toastr: ToastrService, private apiService: ApiService) {}
+  modalOpen = false;  
+  code = '';
+  constructor(private toastr: ToastrService, private apiService: ApiService,
+    private sessionCodeService: SessionCodeService) {}
 
   ngOnInit(): void {
     this.apiService.helloWorld().subscribe({
@@ -16,6 +20,7 @@ export class MainComponent implements OnInit {
         if (response.status === 200) {
           const hello = response.body.data;
           this.toastr.success(hello);
+          this.modalOpen = true;
         }
       },
       error: (error) => {
@@ -25,5 +30,10 @@ export class MainComponent implements OnInit {
         }
       },
     });
+  }
+
+  onSubmitCode() {
+    this.sessionCodeService.setCode(this.code); 
+    this.modalOpen = false;
   }
 }

@@ -78,8 +78,7 @@ export class ImageGeneratorComponent {
         error: (error) => {
           {
             console.log(error);
-            this.alertMessage = error.message;
-            this.toastr.error(error.message, 'Error!');
+            this.toastr.error(error.error.detail, 'Error!');
           
           }
         },
