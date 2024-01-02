@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { CodeRequestObject, LanguageList, MessageList, ModelList } from 'src/app/model';
+import {
+  CodeRequestObject,
+  LanguageList,
+  MessageList,
+  ModelList,
+} from 'src/app/model';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -8,13 +13,16 @@ import { ApiService } from 'src/app/services/api.service';
   templateUrl: './code-generator.component.html',
   styleUrls: ['./code-generator.component.scss'],
 })
-export class CodeGeneratorComponent implements OnInit { 
+export class CodeGeneratorComponent implements OnInit {
   prompt: string = '';
-  message: MessageList[] =[];
+  message: MessageList[] = [];
   showAlert: boolean = false;
   alertMessage: string = '';
   alertType: string = '';
-   initialChat:MessageList = {"role": "system", "content": "You are a helpful assistant."};
+  initialChat: MessageList = {
+    role: 'system',
+    content: 'You are a helpful assistant.',
+  };
 
   modelList: ModelList[] = [
     { label: 'gpt-4', model: 'gpt-4' },
@@ -22,22 +30,19 @@ export class CodeGeneratorComponent implements OnInit {
     { label: 'gpt-4 turbo', model: 'gpt-4 turbo' },
     { label: 'gpt-3.5-turbo-16k', model: 'gpt-3.5-turbo-16k' },
   ];
-  temperature:number = 0.1;
-  language='';
+  temperature: number = 0.1;
+  language = '';
   model: string = 'gpt-4';
 
-  languageList:LanguageList[] = [
+  languageList: LanguageList[] = [
     { label: 'None', language: '' },
     { label: 'Python', language: 'python' },
     { label: 'typescript', language: 'typescripts' },
     { label: 'JavaScript', language: 'javascript' },
+  ];
 
-  ]
-  
-  constructor(private apiService: ApiService,
-    private toastr: ToastrService) {}
+  constructor(private apiService: ApiService, private toastr: ToastrService) {}
   ngOnInit(): void {
-  
     this.message.push(this.initialChat);
   }
 
@@ -47,7 +52,10 @@ export class CodeGeneratorComponent implements OnInit {
   }
   codeGenerator() {
     if (this.prompt.length > 0) {
-   
+      this.message.push({
+        role: 'user',
+        content: this.prompt + ' ' + this.language,
+      });
       const data: CodeRequestObject = {
         message: this.message,
         temperature: this.temperature,
@@ -56,13 +64,12 @@ export class CodeGeneratorComponent implements OnInit {
       this.apiService.generateCode(data).subscribe({
         next: (response) => {
           if (response.status === 200) {
-            this.message.push({'role': 'user', content: this.prompt + ' ' + this.language,})
-            this.message.push({'role': 'assistant', content: response.body});
+            this.message.push({ role: 'assistant', content: response.body });
           }
-
         },
         error: (error) => {
           {
+            this.message.pop();
             console.log(error);
             this.toastr.error(error.error.detail, 'Error');
           }

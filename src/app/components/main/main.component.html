@@ -4,11 +4,11 @@
     <h3 class="modal-title">Enter Code</h3>
     
     <div class="modal-body">
-      <input type="text" [(ngModel)]="code"/>
+      <input type="text" [(ngModel)]="code"  (keydown.enter)="onSubmitCode()"/>
     </div>
   
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline" (click)="onSubmitCode()">
+      <button type="button" class="btn btn-outline" (click)="onSubmitCode()"  (keydown.enter)="onSubmitCode()">
         Submit
       </button>
     </div>
