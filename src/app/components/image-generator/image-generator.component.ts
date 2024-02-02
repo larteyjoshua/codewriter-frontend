@@ -38,34 +38,45 @@ export class ImageGeneratorComponent {
   qualityError: string = '';
   sizeError: string = '';
   nError: string = '';
+  autoHeight: number = 40;
 
-
-  constructor(private apiService: ApiService,
-    private toastr: ToastrService) {}
+  constructor(private apiService: ApiService, private toastr: ToastrService) {}
 
   rangeChange(event: any) {
     console.log(event.target.value);
     this.n = event.target.value;
   }
 
-  imageGenerator() {
+  adjustInputHeight(): void {
+    const textArea = document.querySelector('textarea');
+    textArea!.style.height = 'auto';
+    textArea!.style.height = `${textArea?.scrollHeight}px`;
+    this.autoHeight = textArea?.scrollHeight!;
+  }
 
+  imageGenerator() {
     if (this.prompt.length > 0) {
       const data: RequestObject = {
         model: this.model,
         prompt: this.prompt,
-        quality:this.quality,
-        size:this.size,
-        n:this.n
+        quality: this.quality,
+        size: this.size,
+        n: this.n,
       };
-      if (this.model ==='dall-e-3' && this.n>1){
-        this.toastr.error('Dalle-3 can only generate one image at a time!', 'Error!');
-        return
+      if (this.model === 'dall-e-3' && this.n > 1) {
+        this.toastr.error(
+          'Dalle-3 can only generate one image at a time!',
+          'Error!'
+        );
+        return;
       }
 
-      if (this.model ==='dall-e-2' && this.size !=='1024x1024'){
-        this.toastr.error('"Dalle-2 can only generate 1024x1024 images!', 'Error!');
-        return
+      if (this.model === 'dall-e-2' && this.size !== '1024x1024') {
+        this.toastr.error(
+          '"Dalle-2 can only generate 1024x1024 images!',
+          'Error!'
+        );
+        return;
       }
       this.apiService.generateImage(data).subscribe({
         next: (response) => {
@@ -79,7 +90,6 @@ export class ImageGeneratorComponent {
           {
             console.log(error);
             this.toastr.error(error.error.detail, 'Error!');
-          
           }
         },
       });

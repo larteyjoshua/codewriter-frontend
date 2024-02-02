@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { CodeRequestObject, RequestObject } from '../model';
+import { CodeRequestObject, CodeRequestObjectClaude, RequestObject } from '../model';
 import { Observable } from 'rxjs';
 import { SessionCodeService } from './session-code.service';
 
@@ -36,6 +36,16 @@ export class ApiService {
   helloWorld(): Observable<any> {
     const helloWord = this.url + 'hello';
     return this.http.get(helloWord, { observe: 'response' });
+  }
+
+  
+  generateCodeFromClaude(object: CodeRequestObjectClaude): Observable<any> {
+    const code = this.sessionCode.getCode();
+    const headers = new HttpHeaders({
+      'X-Session-Code': code!, 
+    });
+    const generateCodeURL = this.url + 'generate-code-bedrock';
+    return this.http.post(generateCodeURL, object, { observe: 'response', headers: headers },);
   }
 
 }

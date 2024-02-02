@@ -1,38 +1,37 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import {
-  CodeRequestObject,
-  LanguageList,
   MessageList,
   ModelList,
+  LanguageList,
+  CodeRequestObjectClaude,
 } from 'src/app/model';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
-  selector: 'app-code-generator',
-  templateUrl: './code-generator.component.html',
-  styleUrls: ['./code-generator.component.scss'],
+  selector: 'app-claude-code-generator',
+  templateUrl: './claude-code-generator.component.html',
+  styleUrls: ['./claude-code-generator.component.scss'],
 })
-export class CodeGeneratorComponent implements OnInit {
+export class ClaudeCodeGeneratorComponent {
   prompt: string = '';
   message: MessageList[] = [];
   showAlert: boolean = false;
   alertMessage: string = '';
   alertType: string = '';
-  initialChat: MessageList = {
-    role: 'system',
-    content: 'You are a helpful assistant.',
-  };
 
   modelList: ModelList[] = [
-    { label: 'gpt-4', model: 'gpt-4' },
-    { label: 'gpt-3.5-turbo', model: 'gpt-3.5-turbo' },
-    { label: 'gpt-4 turbo', model: 'gpt-4 turbo' },
-    { label: 'gpt-3.5-turbo-16k', model: 'gpt-3.5-turbo-16k' },
+    {
+      label: 'anthropic.claude-instant-v1',
+      model: 'anthropic.claude-instant-v1',
+    },
+    { label: 'anthropic.claude-v2:1', model: 'anthropic.claude-v2:1' },
+    { label: 'anthropic.claude-v1', model: 'anthropic.claude-v1' },
   ];
-  temperature: number = 0.1;
+
+  temperature: number = 0.9;
   language = '';
-  model: string = 'gpt-4';
+  model: string = 'anthropic.claude-instant-v1';
 
   languageList: LanguageList[] = [
     { label: 'None', language: '' },
@@ -43,10 +42,8 @@ export class CodeGeneratorComponent implements OnInit {
 
   autoHeight: number = 40;
   constructor(private apiService: ApiService, private toastr: ToastrService) {}
-  ngOnInit(): void {
-    this.message.push(this.initialChat);
-  }
-
+  ngOnInit(): void {}
+  
   adjustInputHeight(): void {
     const textArea = document.querySelector('textarea');
     textArea!.style.height = 'auto';
@@ -60,16 +57,17 @@ export class CodeGeneratorComponent implements OnInit {
   }
   codeGenerator() {
     if (this.prompt.length > 0) {
+      const content = this.prompt + ' ' + this.language;
       this.message.push({
         role: 'user',
-        content: this.prompt + ' ' + this.language,
+        content: content,
       });
-      const data: CodeRequestObject = {
-        message: this.message,
+      const data: CodeRequestObjectClaude = {
+        prompt: content,
         temperature: this.temperature,
         model: this.model,
       };
-      this.apiService.generateCode(data).subscribe({
+      this.apiService.generateCodeFromClaude(data).subscribe({
         next: (response) => {
           if (response.status === 200) {
             this.message.push({ role: 'assistant', content: response.body });
@@ -89,6 +87,5 @@ export class CodeGeneratorComponent implements OnInit {
   }
   onNewChat() {
     this.message = [];
-    this.message.push(this.initialChat);
   }
 }

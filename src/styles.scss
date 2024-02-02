@@ -18,10 +18,15 @@ body {
 
 .prompt-input {
     width: 700px;
-    height: 40px;
-    max-height: auto;
+    overflow-y: hidden;
     border-radius: 40px;
     padding: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    resize: none;
+    flex: 1;
 }
 
 .round-input {

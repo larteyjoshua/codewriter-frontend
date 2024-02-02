@@ -19,6 +19,7 @@ import { ClipboardButtonComponent, ClipboardOptions, MarkdownModule } from 'ngx-
 import { SenderCardComponent } from './components/sender-card/sender-card.component';
 import { ReceiverCardComponent } from './components/receiver-card/receiver-card.component';
 import { ToastrModule } from 'ngx-toastr';
+import { ClaudeCodeGeneratorComponent } from './components/claude-code-generator/claude-code-generator.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ToastrModule } from 'ngx-toastr';
     ImageGeneratorComponent,
     SpinnerComponent,
     SenderCardComponent,
-    ReceiverCardComponent
+    ReceiverCardComponent,
+    ClaudeCodeGeneratorComponent
   ],
   imports: [
     BrowserModule,

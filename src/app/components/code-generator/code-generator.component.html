@@ -72,13 +72,15 @@
 
       <div class="generator-tool">
         <div class="round-input">
-          <input
-            class="prompt-input"
-            type="text"
-            [(ngModel)]="prompt"
-            placeholder="Write the full Prompt"
-            (keydown.enter)="codeGenerator()"
-          />
+          <textarea
+              class="prompt-input"
+              type="text"
+              [(ngModel)]="prompt"
+              placeholder="Write the full Prompt"
+              (keydown.enter)="codeGenerator()"
+              (input)="adjustInputHeight()"
+              [style]="{ height: autoHeight + 'px' }"
+            ></textarea>
           <ng-icon
             size="40"
             name="heroPaperAirplane"
