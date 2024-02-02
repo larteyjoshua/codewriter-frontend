@@ -43,7 +43,7 @@ export class ClaudeCodeGeneratorComponent {
   autoHeight: number = 40;
   constructor(private apiService: ApiService, private toastr: ToastrService) {}
   ngOnInit(): void {}
-  
+
   adjustInputHeight(): void {
     const textArea = document.querySelector('textarea');
     textArea!.style.height = 'auto';

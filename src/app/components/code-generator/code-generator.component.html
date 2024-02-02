@@ -55,8 +55,7 @@
     </clr-vertical-nav>
 
     <div class="content-area">
-      <div
-        class="d-container">
+      <div class="d-container">
         <div *ngFor="let code of message">
           <app-sender-card
             [prompt]="code.content"
@@ -73,14 +72,14 @@
       <div class="generator-tool">
         <div class="round-input">
           <textarea
-              class="prompt-input"
-              type="text"
-              [(ngModel)]="prompt"
-              placeholder="Write the full Prompt"
-              (keydown.enter)="codeGenerator()"
-              (input)="adjustInputHeight()"
-              [style]="{ height: autoHeight + 'px' }"
-            ></textarea>
+            class="prompt-input"
+            type="text"
+            [(ngModel)]="prompt"
+            placeholder="Write the full Prompt"
+            (keydown.enter)="codeGenerator()"
+            (input)="adjustInputHeight()"
+            [style]="{ height: autoHeight + 'px' }"
+          ></textarea>
           <ng-icon
             size="40"
             name="heroPaperAirplane"
@@ -92,6 +91,5 @@
     <div #scrollContainer>
       <!-- Your content here -->
     </div>
-    
   </div>
 </section>
